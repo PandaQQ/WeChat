@@ -69,8 +69,42 @@ function requestTheProductWithProductID(product_id){
 
 ```
 
-#### Promise顺序执行
+#### Promise顺序执行的正确使用方式
+
+按照顺序执行，容易想到的有以下几种方法：
+* then.then.then，从头then到尾…
+* then(then(then()))，then的嵌套…
+####
+promise链的本质其实就是从头then到尾，但是第一种方法怎么用程序来实现，看到实现方法的时候只有一句话，犀利啊！
+
+ ```javascript
  
+ function requestToGetProductList(){
+
+  let product_array;
+  let url = '';
+  api.TRequestWithAccessToken(url).then((res)=>{
+  
+    product_array = res.data;
+    let sequence = Promise.resolve();
+    product_array.forEach(function(item){
+      
+      let product_id = item.product_id;
+      sequence = sequence.then(function(){
+        
+        return requestTheProductWithProductID(product_id);
+      }).then((res)=>{
+        
+        console.log(res);
+      });
+    });
+  }).catch((err)=>{
+    
+    console.log(err);
+  });
+}
+
+ ```
 
 #### 参考
 * http://sabrinaluo.com/tech/2016/01/23/excecute-parallel-promise-and-sequential-promise/ 
