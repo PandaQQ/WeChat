@@ -24,7 +24,7 @@ const AccessTokenRefresh = APIRequestURL + 'tokens/refresh';
 接下来是获取 Guest Token的两个方法.
 ```javascript
   /**
-  * 封装TMark Refresh Guest Token Request
+  * 封装Refresh Guest Token Request
   */
  function RequestWithRefreshToken(url, data = {}, method = "GET"){
   return new Promise(function (reslove, reject){
@@ -103,7 +103,7 @@ function RefreshGuestToken(){
 接下来是获取 Access Token的两个方法.
 ```javascript
 /**
- * 封装 TMark Refresh AccessToken Request 
+ * 封装Refresh AccessToken Request 
  */
 function RequestWithAccessToken(url, data = {}, method = "GET"){
   return new Promise(function (reslove, reject) {
