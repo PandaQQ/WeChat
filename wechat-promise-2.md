@@ -105,6 +105,8 @@ promise链的本质其实就是从头then到尾，但是第一种方法怎么用
 }
 
  ```
+ 可以看到请求是按顺序依次发出
+
 ![image](https://github.com/PandaQQ/WeChat/blob/master/img/wechat-request.png)
 
 #### 参考
