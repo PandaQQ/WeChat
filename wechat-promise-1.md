@@ -10,6 +10,7 @@
 获取Access Token 和获取 Guest Token 功能之前在iOS端有实现过一次, 使用的是AFNetworking封装之后可以自动对 401的响应重新发起刷新token的请求之后继续执行401之前最初的请求. 但是实现并不是特别理想, 同时AFNetworking 3.0不支持, 一直使用的是AFNetworking 2.0 .这次有机会写小程序，初次接触到Promise, 就大胆尝试了下. 
 
 一般这个请求是所有request的基类, 所以我将这个请求的方法单独放到一个api.js里面.
+所以一些基本的配置信息也就放在这个js文件里面.
 ```javascript
   ### api.js ###
   
@@ -18,7 +19,10 @@ const ClientID = 'iOS';
 const ClientSecert = 'secretiOS';
 const GuestTokenRefresh = APIRequestURL + 'tokens/guest';
 const AccessTokenRefresh = APIRequestURL + 'tokens/refresh';
-  
+```
+
+接下来是获取 Guest Token的两个方法.
+```javascript
   /**
   * 封装TMark Refresh Guest Token Request
   */
@@ -58,6 +62,37 @@ const AccessTokenRefresh = APIRequestURL + 'tokens/refresh';
       },
       fail:function(err){
         console.log(err);
+        reject(err);
+      }
+    })
+  });
+}
+
+/**
+ * 封装Refresh GuestToken功能
+*/
+function RefreshGuestToken(){
+  return new Promise(function(reslove, reject){
+    wx.request({
+      url: GuestTokenRefresh,
+      data:{
+      /*自定义数据*/
+      },
+      header:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method:'POST',
+      success:function(res){
+        console.log(res);
+        if (res.statusCode == 201) {
+          reslove(res);
+        }
+        else{
+          reject(res);
+        }
+      },
+      fail:function(err){
         reject(err);
       }
     })
