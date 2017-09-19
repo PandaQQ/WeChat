@@ -1,1 +1,1 @@
-# PandaQ 的 WeChat 开发
+# WeChat 开发
