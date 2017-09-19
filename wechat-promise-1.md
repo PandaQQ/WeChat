@@ -1,4 +1,4 @@
-# WeChat Promise 1
+# WeChat Promise Session 1
 如何使用Promise请求更新 Access Token 和 Guest Token
 
 ####  前言
