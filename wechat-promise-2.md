@@ -105,6 +105,7 @@ promise链的本质其实就是从头then到尾，但是第一种方法怎么用
 }
 
  ```
+(https://github.com/PandaQQ/WeChat/blob/master/img/wechat-request.png)
 
 #### 参考
 * http://sabrinaluo.com/tech/2016/01/23/excecute-parallel-promise-and-sequential-promise/ 
