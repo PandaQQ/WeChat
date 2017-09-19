@@ -100,3 +100,88 @@ function RefreshGuestToken(){
 }
   
 ```
+接下来是获取 Access Token的两个方法.
+```javascript
+/**
+ * 封装 TMark Refresh AccessToken Request 
+ */
+function RequestWithAccessToken(url, data = {}, method = "GET"){
+  return new Promise(function (reslove, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': wx.getStorageSync('accessToken')
+      },
+      success: function (res) {
+        console.log("success");
+        if (res.statusCode == 201) {
+          reslove(res);
+        }
+        else if (res.statusCode == 401) {
+          //需要获取accessToken之后才访问
+          let accessToken = null;
+          return RefreshAccessToken().then(res => {
+          
+            wx.setStorageSync('accessToken', accessToken);
+            return RequestWithAccessToken(url, data, method);
+
+          }).then((res) => {
+            reslove(res);
+          }).catch((err) => {
+            reject(err);
+          });
+        }
+        else if (res.statusCode == 200){
+          reslove(res);
+        }
+        else{
+          console.log(res.statusCode);
+          reject(res);
+        }
+      },
+      fail: function (err) {
+        console.log(err);
+        reject(err);
+      }
+    })
+  });
+}
+
+
+/**
+ * 封装Refresh AccessToken功能
+*/
+function RefreshAccessToken() {
+  return new Promise(function (reslove, reject) {
+    wx.request({
+      url: AccessTokenRefresh,
+      data: {
+        /*自定义数据*/
+        "refresh_token":wx.getStorageSync('refreshToken')
+      },
+      header: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log(res);
+        if (res.statusCode == 201) {
+          reslove(res);
+        }
+        else {
+          reject(res);
+        }
+      },
+      fail: function (err) {
+        reject(err);
+      }
+    })
+  });
+}
+
+```
