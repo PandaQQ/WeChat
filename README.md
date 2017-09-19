@@ -1,3 +1,1 @@
-# WeChat
-Hello World?!
-Hello World2 !
+# PandaQ 的 WeChat 开发
