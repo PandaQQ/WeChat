@@ -36,6 +36,7 @@ Promise的顺序执行和并行执行
 
 #### Promise并行执行实现
 关于 RequestWithAccessToken()方法可以参考 Promise Session 1
+https://github.com/PandaQQ/WeChat/blob/master/wechat-promise-1.md
 
 ```javascript
 
