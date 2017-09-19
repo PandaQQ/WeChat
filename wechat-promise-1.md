@@ -195,4 +195,26 @@ function RefreshAccessToken() {
 
 
 ####  如何使用？
+
 这个就十分方便了.
+
+```javascript
+  /*首先引入js文件*/
+  const api = requrire('./api.js');
+  let info = {};
+  let url = '';
+  
+  //调用 refresh guest token
+  api.RequestWithRefreshToken(url, info, "POST").then((res) => {
+  
+  }).catch((err) => {
+     
+  });
+  //调用 refresh access token
+  api.RequestWithAccessToken(url, info, "POST").then((res) => {
+  
+  }).catch((err) => {
+     
+  });
+  
+```
