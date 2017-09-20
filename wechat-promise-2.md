@@ -164,3 +164,4 @@ function requestToGetProductList(){
 * https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-network.html
 * https://github.com/zhengjunxin/wx-queue-request
 * http://fex.baidu.com/blog/2015/07/we-have-a-problem-with-promises/
+* https://eyesofkids.gitbooks.io/javascript-start-es6-promise/content/contents/basic_usage.html
