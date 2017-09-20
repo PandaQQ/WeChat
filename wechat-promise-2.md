@@ -109,6 +109,12 @@ promise链的本质其实就是从头then到尾，但是第一种方法怎么用
 
 ![image](https://github.com/PandaQQ/WeChat/blob/master/img/wechat-request.png)
 
+#### 太天真了！
+当你觉得一切万事大吉的时候，往往就是问题出现的时候!
+最简单的一个问题, 怎么样才能知道sequence requests完成了啊！上述的代码根本不行啊！尼玛啊！坑爹啊！首先根本不知道什么时候完成，完成之后的完整数据如何获取？
+#### Promise.all()再一次拯救了我！
+
+
 #### 参考
 * http://sabrinaluo.com/tech/2016/01/23/excecute-parallel-promise-and-sequential-promise/ 
 * https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-network.html
