@@ -113,9 +113,54 @@ promise链的本质其实就是从头then到尾，但是第一种方法怎么用
 当你觉得一切万事大吉的时候，往往就是问题出现的时候!
 最简单的一个问题, 怎么样才能知道sequence requests完成了啊！上述的代码根本不行啊！尼玛啊！坑爹啊！首先根本不知道什么时候完成，完成之后的完整数据如何获取？
 #### Promise.all()再一次拯救了我！
+Promise.all()对于多个Promise可以等待全部完成后再执行，对于一个Promise当然也是可行的拉～啦啦啦啦啦～
+```javascript
+function requestToGetProductList(){
 
+  let product_array;
+  let new_product_array = [];
+  let url = '';
+
+
+  return api.RequestWithAccessToken(url).then((res)=>{
+
+    return new Promise(function(reslove, reject){
+
+      product_array = res.data;
+      let sequence = Promise.resolve();
+      product_array.forEach(function (item) {
+        let product_id = item.product_id;
+        let product = {};
+        sequence = sequence.then(function () {
+          return requestTheProductWithProductID(product_id);
+        }).then((res) => {
+          //console.log(res);
+          product['ProductDetail'] = res[0].data;
+          product['ProductImages'] = res[1].data;
+          product['OthersDetails'] = res[2].data;
+          new_product_array.push(product);
+        });
+      });
+
+      Promise.all([sequence]).then(function(){
+        reslove(product_array);
+      }).catch((err)=>{
+        reject(err);
+      });
+    });   
+  });
+}
+```
+#### 使用方法
+最后的万事大吉～
+```javascript
+  api.requestToGetProductList().then((res)={
+    console.log(res);
+  });
+```
 
 #### 参考
 * http://sabrinaluo.com/tech/2016/01/23/excecute-parallel-promise-and-sequential-promise/ 
 * https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-network.html
 * https://github.com/zhengjunxin/wx-queue-request
+* http://fex.baidu.com/blog/2015/07/we-have-a-problem-with-promises/
